@@ -4,11 +4,11 @@ Upstream release binaries of widely used developer tools, repackaged as Python w
 so they install with `pip`, `uv`, `pipx` and pre-commit, with no Go/C++ toolchain, no
 Docker and no `curl | tar` in CI.
 
-| PyPI package | Upstream | Platforms | pre-commit hook |
+| PyPI package | Upstream | Platforms | Status |
 |---|---|---|---|
 | [`gitleaks`](https://pypi.org/project/gitleaks/) | [gitleaks/gitleaks](https://github.com/gitleaks/gitleaks) | Linux (glibc + musl) x86_64/aarch64/i686/armv7l/armv6l, macOS 11+, Windows x64/x86/arm64 | `gitleaks` |
-| [`osv-scanner`](https://pypi.org/project/osv-scanner/) | [google/osv-scanner](https://github.com/google/osv-scanner) | Linux (glibc + musl) x86_64/aarch64, macOS 13+, Windows x64/arm64 | `osv-scanner` |
-| [`doxygen`](https://pypi.org/project/doxygen/) | [doxygen/doxygen](https://github.com/doxygen/doxygen) | Linux glibc 2.35+ x86_64, macOS 15+, Windows x64 | none |
+| `osv-scanner` | [google/osv-scanner](https://github.com/google/osv-scanner) | Linux (glibc + musl) x86_64/aarch64, macOS 13+, Windows x64/arm64 | built and tested, not published: the PyPI name is quarantined |
+| `doxygen` | [doxygen/doxygen](https://github.com/doxygen/doxygen) | Linux glibc 2.35+ x86_64, macOS 15+, Windows x64 | built and tested, not published yet |
 
 These are **unofficial** redistributions of the unmodified upstream binaries. If an
 upstream project wants to publish to PyPI itself, we are happy to hand the PyPI project
@@ -22,7 +22,6 @@ repos:
     rev: gitleaks-v8.30.1 # any tag works; every tag carries the latest pin of every hook
     hooks:
       - id: gitleaks
-      - id: osv-scanner
 ```
 
 Upstream's hooks use `language: golang`, so every new machine compiles the tool with a Go
@@ -44,9 +43,9 @@ src/binwheel/            the builder (stdlib + packaging)
 2. **Review and merge.** CI builds every wheel, checks every download against the pinned
    hash, installs and runs the wheels on Linux x86_64/arm64, macOS arm64/x86_64 and
    Windows x64/arm64, in Alpine (musl) and Debian 11 containers, and exercises the
-   pre-commit hooks against a repo with a planted secret and a vulnerable dependency.
+   gitleaks pre-commit hook against a repo with a planted secret.
 3. **Publish.** Merging changes `tools/`, so `publish.yml` publishes every tool whose
-   pinned version is not on PyPI yet (Trusted Publishing, PEP 740 attestations), then
+   pinned version is not on PyPI yet and that is not marked `publish = false` (Trusted Publishing, PEP 740 attestations), then
    tags `<tool>-v<version>` and attaches the wheels (and, for GPL tools, the matching
    source tarball) to a GitHub release.
 
@@ -89,10 +88,10 @@ versions), and the PyPI name is free.
 
 ## One-time setup
 
-- PyPI: for each project (`gitleaks`, `osv-scanner`, `doxygen`), add a (pending)
+- PyPI: for each published project (currently `gitleaks`), add a (pending)
   trusted publisher: owner/repository of this repo, workflow `publish.yml`,
   environment `pypi`.
-- GitHub: create the `pypi` environment (optionally with required reviewers), and enable
+- GitHub: create the `pypi` environment with yourself as required reviewer, and enable
   *Settings > Actions > General > Allow GitHub Actions to create and approve pull
   requests* for the bump pull requests.
 - PyPI's default per-project size limit is 10 GB. doxygen releases are about 190 MB of

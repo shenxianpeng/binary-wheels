@@ -12,6 +12,8 @@
 #   into the environment's Scripts directory.
 
 [package]
+# Built and tested in CI but not uploaded: not released yet.
+publish = false
 name = "doxygen"
 layout = "package"
 summary = "Doxygen documentation generator, packaged as Python wheels (unofficial redistribution of the upstream binaries)"

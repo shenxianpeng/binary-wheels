@@ -52,7 +52,7 @@ def main(argv: list[str] | None = None) -> int:
     p_smoke.add_argument("--dist", type=Path, default=Path("dist"))
     p_smoke.add_argument("--require", action="store_true", help="fail if no wheel matches this machine")
 
-    sub.add_parser("plan", help="JSON list of tools whose pinned version is not on PyPI yet")
+    sub.add_parser("plan", help="JSON list of publishable tools whose pinned version is not on PyPI yet")
 
     p_version = sub.add_parser("version", help="print the pinned wheel version of a tool")
     p_version.add_argument("tool")
@@ -102,7 +102,7 @@ def main(argv: list[str] | None = None) -> int:
         return 1 if failed else 0
 
     if args.cmd == "plan":
-        pending = [t.name for t in _tools([], args.tools_dir) if not ops.on_pypi(t.name, t.lock.wheel_version)]
+        pending = [t.name for t in _tools([], args.tools_dir) if t.publish and not ops.on_pypi(t.name, t.lock.wheel_version)]
         print(json.dumps(pending))
         _github_output(tools=json.dumps(pending), any="true" if pending else "false")
         return 0

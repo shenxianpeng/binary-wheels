@@ -68,6 +68,7 @@ class Tool:
     smoke_expect: str
     lock: Lock
     extra_downloads: dict[str, str] = field(default_factory=dict)
+    publish: bool = True  # false: built and tested in CI, never uploaded
 
     @property
     def lock_path(self) -> Path:
@@ -161,6 +162,7 @@ def load_tool(path: Path | str) -> Tool:
         smoke_expect=smoke.get("expect", "{version}"),
         lock=load_lock(lock_path_for(path)),
         extra_downloads=dict(raw.get("extra-downloads", {})),
+        publish=bool(pkg.get("publish", True)),
     )
 
 

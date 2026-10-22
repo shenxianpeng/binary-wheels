@@ -138,7 +138,7 @@ jobs:
           merge-multiple: true
           path: dist
       - run: python -m pip install pre-commit
-      - name: Hooks install from the wheels and catch a leak and a vulnerable dependency
+      - name: The gitleaks hook installs from the wheel and catches a leak
         env:
           # pre-commit's pip picks the not-yet-published wheels up from here
           PIP_FIND_LINKS: ${{ github.workspace }}/dist
@@ -148,12 +148,10 @@ jobs:
           work="$(mktemp -d)" && cd "$work"
           git init -q && git config user.email ci@example.invalid && git config user.name ci
           echo 'token = "ghp_1a2B3c4D5e6F7g8H9i0J1k2L3m4N5o6P7q8R"' > leak.py
-          echo 'requests==2.19.0' > requirements.txt
           git add -A
 
           if pre-commit try-repo "$repo" gitleaks; then echo "::error::gitleaks hook missed the leak"; exit 1; fi
-          if pre-commit try-repo "$repo" osv-scanner --all-files; then echo "::error::osv-scanner hook missed the vulnerability"; exit 1; fi
 
-          git rm -q --cached leak.py requirements.txt && rm leak.py requirements.txt
+          git rm -q --cached leak.py && rm leak.py
           echo 'print("hello")' > ok.py && git add ok.py
           pre-commit try-repo "$repo" gitleaks

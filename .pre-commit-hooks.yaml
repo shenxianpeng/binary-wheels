@@ -9,12 +9,4 @@
   additional_dependencies: ["gitleaks==8.30.1"]
   pass_filenames: false
 
-- id: osv-scanner
-  name: osv-scanner
-  description: Scan the current working directory for vulnerable dependencies
-  entry: osv-scanner
-  language: python
-  additional_dependencies: ["osv-scanner==2.7.0"]
-  always_run: true
-  pass_filenames: false
-  args: ["scan", "source", "--format=vertical", "--recursive", "--verbosity=error", "."]
+# osv-scanner hook: added back once an osv-scanner wheel is on PyPI.
