@@ -1,0 +1,83 @@
+scripts/container-smoke.sh
+  s_6b3b768147348a::t_ebc097dcc02aa4 1-8
+tools/osv-scanner.lock.json
+  s_6b3b768147348a::t_5ccdd0a5765cf0 1-13
+.github/workflows/ci.yml
+  s_6b3b768147348a::t_2de959ca0f27b4 1-159
+tools/osv-scanner.md
+  s_6b3b768147348a::t_12a07780be5571 1-61
+tests/test_binwheel.py
+  s_6b3b768147348a::t_43e1fbb6f56900 1-159
+.github/workflows/publish.yml
+  s_6b3b768147348a::t_f0b90319b17c8f 1-114
+LICENSE
+  s_6b3b768147348a::t_80c9642148b764 1-21
+README.md
+  s_6b3b768147348a::t_0e4aecbd39d944 2-105
+  s_6b3b768147348a::t_80c9642148b764 1
+src/binwheel/wheel.py
+  s_6b3b768147348a::t_52bed239b108de 1-150
+tools/osv-scanner.toml
+  s_6b3b768147348a::t_2727e7e5b2534b 1-66
+.pre-commit-hooks.yaml
+  s_6b3b768147348a::t_5ccdd0a5765cf0 1-20
+src/binwheel/config.py
+  s_6b3b768147348a::t_c245331c6a8c8b 100-101
+  s_6b3b768147348a::t_5dd0e08652839f 1-85,87-99,102-168
+  s_6b3b768147348a::t_7624e81a57dee1 86
+src/binwheel/cli.py
+  s_6b3b768147348a::t_8d0f06d25171e9 1-56,65,75-114
+  s_6b3b768147348a::t_81802d3795b503 57-64,66-74
+.github/workflows/check-upstream.yml
+  s_6b3b768147348a::t_c979a8e89e12cd 1-105
+src/binwheel/shim.py
+  s_6b3b768147348a::t_2e2daa8a5ccb4c 1-80
+tools/gitleaks.toml
+  s_6b3b768147348a::t_dfbed38eab93aa 1-86
+.python-version
+  s_6b3b768147348a::t_80c9642148b764 1
+tools/gitleaks.lock.json
+  s_6b3b768147348a::t_5ccdd0a5765cf0 1-16
+tools/doxygen.lock.json
+  s_6b3b768147348a::t_5ccdd0a5765cf0 1-12
+src/binwheel/ops.py
+  s_6b3b768147348a::t_c505a3fe5c178e 79-91
+  s_6b3b768147348a::t_61e510d9f757a0 1-78,92-186
+tools/gitleaks.md
+  s_6b3b768147348a::t_18945f87022290 1-65
+tools/doxygen.toml
+  s_6b3b768147348a::t_dd1eb9111c8890 1-76
+src/binwheel/__init__.py
+  s_6b3b768147348a::t_1b506eb54c2513 1-6
+tools/doxygen.md
+  s_6b3b768147348a::t_aa520538f0bffd 1-69
+src/binwheel/fetch.py
+  s_6b3b768147348a::t_748b5402d3da7e 14-16
+  s_6b3b768147348a::t_80f6bc21691da7 1-13,17-106
+pyproject.toml
+  s_6b3b768147348a::t_7b781ff419f6f8 1-31
+tests/conftest.py
+  s_6b3b768147348a::t_c3a38f4718b1da 1-106
+.github/dependabot.yml
+  s_6b3b768147348a::t_8779bdfa283432 1-17
+.gitignore
+  s_6b3b768147348a::t_7a120e927fa58d 1-6
+uv.lock
+  s_6b3b768147348a::t_ca5a0dafee9273 1-653
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "690c45c04997c2f2f2dac100d98f37596aa71432",
+  "prompts": {},
+  "sessions": {
+    "s_6b3b768147348a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ab0be960-edf8-4e79-b138-3b89934817bf",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Xianpeng Shen <xianpeng.shen@gmail.com>"
+    }
+  }
+}
