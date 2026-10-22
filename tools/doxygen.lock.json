@@ -1,0 +1,12 @@
+{
+  "version": "1.18.0",
+  "post": 0,
+  "sha256": {
+    "LICENSE": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+    "doxygen-1.18.0-mac-arm.zip": "31d1c74467a9f6f456b4e6a4eff0c03e93d1ffa92da5fdf2d53a2f14ebaabbd7",
+    "doxygen-1.18.0-mac-intel.zip": "8045d72f6f900fd430042339c1493d6eefcc85a7f990361fb57685682f16a2f9",
+    "doxygen-1.18.0.linux.bin.tar.gz": "14fa81bdc34171edb5f1f02b1d60e74802f0439b77fa44e592565d517d72df90",
+    "doxygen-1.18.0.src.tar.gz": "a1deed70a6785bbec95a2b2a9e419dc7f7b223a9d74a8644ae611c8e2dcdd354",
+    "doxygen-1.18.0.windows.x64.bin.zip": "e84f54cfd49ef06b0b16536056dbec0c496323de28abcce53a4269463de35eaf"
+  }
+}

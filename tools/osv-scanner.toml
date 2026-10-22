@@ -1,0 +1,66 @@
+# osv-scanner: vulnerability scanner backed by osv.dev. Upstream ships bare static
+# Go binaries (not archives), so each `files` entry maps to "" = the asset itself.
+
+[package]
+name = "osv-scanner"
+module = "osv_scanner"
+summary = "OSV-Scanner vulnerability scanner, packaged as Python wheels (unofficial redistribution of the upstream binaries)"
+license = "Apache-2.0 AND MIT"
+keywords = ["osv", "osv-scanner", "vulnerability", "sca", "security", "supply-chain", "pre-commit"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: MacOS",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX :: Linux",
+  "Topic :: Security",
+  "Topic :: Software Development :: Quality Assurance",
+]
+
+[package.urls]
+Homepage = "https://google.github.io/osv-scanner/"
+Source = "https://github.com/google/osv-scanner"
+"Release notes" = "https://github.com/google/osv-scanner/releases/tag/{tag}"
+
+[upstream]
+repo = "google/osv-scanner"
+checksums = "osv-scanner_SHA256SUMS"
+
+[license]
+url = "https://raw.githubusercontent.com/google/osv-scanner/{tag}/LICENSE"
+
+[smoke]
+args = ["--version"]
+expect = "osv-scanner version: {version}"
+
+[[platforms]]
+tag = "manylinux_2_17_x86_64.manylinux2014_x86_64.musllinux_1_1_x86_64"
+asset = "osv-scanner_linux_amd64"
+files = { "osv-scanner" = "" }
+
+[[platforms]]
+tag = "manylinux_2_17_aarch64.manylinux2014_aarch64.musllinux_1_1_aarch64"
+asset = "osv-scanner_linux_arm64"
+files = { "osv-scanner" = "" }
+
+# minos 13.0 in the upstream Mach-O headers.
+[[platforms]]
+tag = "macosx_13_0_x86_64"
+asset = "osv-scanner_darwin_amd64"
+files = { "osv-scanner" = "" }
+
+[[platforms]]
+tag = "macosx_13_0_arm64"
+asset = "osv-scanner_darwin_arm64"
+files = { "osv-scanner" = "" }
+
+[[platforms]]
+tag = "win_amd64"
+asset = "osv-scanner_windows_amd64.exe"
+files = { "osv-scanner.exe" = "" }
+
+[[platforms]]
+tag = "win_arm64"
+asset = "osv-scanner_windows_arm64.exe"
+files = { "osv-scanner.exe" = "" }

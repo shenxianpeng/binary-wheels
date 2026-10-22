@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+# The builder itself. It is never published; pre-commit installs it when it
+# sets up a hook from this repository, which is harmless (it is tiny).
+[project]
+name = "binary-wheels"
+version = "0.1.0"
+description = "Repackage upstream release binaries (gitleaks, osv-scanner, doxygen, ...) as Python wheels"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+dependencies = ["packaging>=24"]
+
+[project.scripts]
+binwheel = "binwheel.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8", "twine>=6.1"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/binwheel"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["network: downloads real upstream releases"]
+
+[tool.ruff]
+line-length = 130

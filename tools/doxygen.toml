@@ -1,0 +1,76 @@
+# doxygen: documentation generator for C/C++ and more.
+#
+# Platform notes (checked against the 1.18.0 binaries):
+# - Linux x86_64: dynamically linked; needs GLIBC_2.34 and GLIBCXX_3.4.30 (GCC 12
+#   libstdc++), plus libz.so.1 and libtinfo.so.6 from the system. Hence
+#   manylinux_2_35 (Ubuntu 22.04+, Debian 12+, Fedora 36+, RHEL 10+).
+# - Linux aarch64: upstream ships no binary. Not covered yet.
+# - macOS: minos 15.0 for both arm64 and x86_64.
+# - Windows x64: doxygen.exe imports libclang.dll, so the DLL must sit next to it.
+#   That is why this tool uses the "package" layout (binaries under doxygen/bin/,
+#   started through a console-script entry point) instead of dropping a 60 MB DLL
+#   into the environment's Scripts directory.
+
+[package]
+name = "doxygen"
+layout = "package"
+summary = "Doxygen documentation generator, packaged as Python wheels (unofficial redistribution of the upstream binaries)"
+license = "GPL-2.0-only AND MIT"
+keywords = ["doxygen", "documentation", "c++", "sphinx", "breathe", "api-docs"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: MacOS",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: C",
+  "Programming Language :: C++",
+  "Topic :: Documentation",
+  "Topic :: Software Development :: Documentation",
+]
+
+[package.urls]
+Homepage = "https://www.doxygen.nl/"
+Source = "https://github.com/doxygen/doxygen"
+"Source tarball" = "https://github.com/doxygen/doxygen/releases/download/{tag}/doxygen-{version}.src.tar.gz"
+"Release notes" = "https://www.doxygen.nl/manual/changelog.html"
+
+[upstream]
+repo = "doxygen/doxygen"
+tag = "Release_{version_underscore}"
+tag-regex = '^Release_(\d+)_(\d+)_(\d+)$'
+# Upstream publishes no checksum file: `binwheel bump` hashes the downloads and the
+# hashes are reviewed in the bump pull request.
+
+[license]
+url = "https://raw.githubusercontent.com/doxygen/doxygen/{tag}/LICENSE"
+
+# GPL: the matching source tarball is pinned too, and the publish workflow attaches
+# it to the GitHub release next to the wheels.
+[extra-downloads]
+source = "https://github.com/doxygen/doxygen/releases/download/{tag}/doxygen-{version}.src.tar.gz"
+
+[smoke]
+args = ["--version"]
+expect = "{version}"
+
+[[platforms]]
+tag = "manylinux_2_35_x86_64"
+asset = "doxygen-{version}.linux.bin.tar.gz"
+files = { "doxygen" = "doxygen-{version}/bin/doxygen" }
+
+[[platforms]]
+tag = "macosx_15_0_x86_64"
+asset = "doxygen-{version}-mac-intel.zip"
+files = { "doxygen" = "doxygen-{version}/doxygen" }
+
+[[platforms]]
+tag = "macosx_15_0_arm64"
+asset = "doxygen-{version}-mac-arm.zip"
+files = { "doxygen" = "doxygen-{version}/doxygen" }
+
+[[platforms]]
+tag = "win_amd64"
+asset = "doxygen-{version}.windows.x64.bin.zip"
+files = { "doxygen.exe" = "doxygen.exe", "libclang.dll" = "libclang.dll" }

@@ -1,0 +1,86 @@
+# gitleaks: secret scanner. Upstream ships static Go binaries for every platform.
+# The version and file hashes live in gitleaks.lock.json (managed by `binwheel bump`).
+
+[package]
+name = "gitleaks"
+summary = "Gitleaks secret scanner, packaged as Python wheels (unofficial redistribution of the upstream binaries)"
+license = "MIT"
+keywords = ["gitleaks", "secrets", "security", "pre-commit", "sast"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: MacOS",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX :: Linux",
+  "Topic :: Security",
+  "Topic :: Software Development :: Quality Assurance",
+]
+
+[package.urls]
+Homepage = "https://github.com/gitleaks/gitleaks"
+Documentation = "https://github.com/gitleaks/gitleaks#readme"
+"Release notes" = "https://github.com/gitleaks/gitleaks/releases/tag/{tag}"
+
+[upstream]
+repo = "gitleaks/gitleaks"
+checksums = "gitleaks_{version}_checksums.txt"
+
+[license]
+member = "LICENSE"
+
+[smoke]
+args = ["version"]
+expect = "{version}"
+
+# Go binaries are statically linked, so one Linux binary serves glibc and musl.
+[[platforms]]
+tag = "manylinux_2_17_x86_64.manylinux2014_x86_64.musllinux_1_1_x86_64"
+asset = "gitleaks_{version}_linux_x64.tar.gz"
+files = { "gitleaks" = "gitleaks" }
+
+[[platforms]]
+tag = "manylinux_2_17_aarch64.manylinux2014_aarch64.musllinux_1_1_aarch64"
+asset = "gitleaks_{version}_linux_arm64.tar.gz"
+files = { "gitleaks" = "gitleaks" }
+
+[[platforms]]
+tag = "manylinux_2_17_i686.manylinux2014_i686.musllinux_1_1_i686"
+asset = "gitleaks_{version}_linux_x32.tar.gz"
+files = { "gitleaks" = "gitleaks" }
+
+[[platforms]]
+tag = "manylinux_2_17_armv7l.manylinux2014_armv7l.musllinux_1_1_armv7l"
+asset = "gitleaks_{version}_linux_armv7.tar.gz"
+files = { "gitleaks" = "gitleaks" }
+
+[[platforms]]
+tag = "linux_armv6l"
+asset = "gitleaks_{version}_linux_armv6.tar.gz"
+files = { "gitleaks" = "gitleaks" }
+
+# Built with a Go release that needs macOS 11 (LC_BUILD_VERSION minos 11.0).
+[[platforms]]
+tag = "macosx_11_0_x86_64"
+asset = "gitleaks_{version}_darwin_x64.tar.gz"
+files = { "gitleaks" = "gitleaks" }
+
+[[platforms]]
+tag = "macosx_11_0_arm64"
+asset = "gitleaks_{version}_darwin_arm64.tar.gz"
+files = { "gitleaks" = "gitleaks" }
+
+[[platforms]]
+tag = "win_amd64"
+asset = "gitleaks_{version}_windows_x64.zip"
+files = { "gitleaks.exe" = "gitleaks.exe" }
+
+[[platforms]]
+tag = "win32"
+asset = "gitleaks_{version}_windows_x32.zip"
+files = { "gitleaks.exe" = "gitleaks.exe" }
+
+[[platforms]]
+tag = "win_arm64"
+asset = "gitleaks_{version}_windows_arm64.zip"
+files = { "gitleaks.exe" = "gitleaks.exe" }
