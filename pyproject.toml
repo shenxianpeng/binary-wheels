@@ -18,7 +18,7 @@ dependencies = ["packaging>=24"]
 binwheel = "binwheel.cli:main"
 
 [dependency-groups]
-dev = ["pytest>=8", "twine>=6.1"]
+dev = ["pytest>=8", "pytest-cov>=7", "twine>=6.1"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/binwheel"]
@@ -26,6 +26,15 @@ packages = ["src/binwheel"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 markers = ["network: downloads real upstream releases"]
+
+# CI runs `pytest --cov`: anything below 100% line and branch coverage fails the build.
+[tool.coverage.run]
+source = ["binwheel"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 100
+show_missing = true
 
 [tool.ruff]
 line-length = 130

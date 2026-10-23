@@ -13,6 +13,7 @@ from packaging.tags import sys_tags
 
 SCRIPT = b'#!/bin/sh\necho "faketool 1.0.0 $@"\n'
 LICENSE = b"Fake License\n"
+SOURCE = b"int main(void) { return 0; }\n"
 
 
 def _tar(path: Path, members: dict[str, bytes]) -> None:
@@ -33,9 +34,12 @@ def _zip(path: Path, members: dict[str, bytes]) -> None:
 def make_upstream(root: Path, version: str = "1.0.0") -> Path:
     up = root / "upstream"
     up.mkdir(parents=True, exist_ok=True)
-    _tar(up / f"faketool_{version}_linux.tar.gz", {f"faketool-{version}/faketool": SCRIPT, f"faketool-{version}/LICENSE": LICENSE})
-    _tar(up / f"faketool_{version}_host.tar.gz", {f"faketool-{version}/faketool": SCRIPT, f"faketool-{version}/LICENSE": LICENSE})
+    members = {f"faketool-{version}/faketool": SCRIPT, f"faketool-{version}/LICENSE": LICENSE}
+    _tar(up / f"faketool_{version}_linux.tar.gz", members)
+    _tar(up / f"faketool_{version}_host.tar.gz", members)
     _zip(up / f"faketool_{version}_windows.zip", {"faketool.exe": b"MZ fake exe", "helper.dll": b"MZ fake dll"})
+    _tar(up / f"faketool-{version}.src.tar.gz", {f"faketool-{version}/main.c": SOURCE})  # for [extra-downloads]
+    (up / "LICENSE").write_bytes(LICENSE)  # for [license] url = ...
     sums = "".join(
         f"{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.name}\n" for p in sorted(up.iterdir()) if p.suffix != ".txt"
     )
@@ -43,11 +47,16 @@ def make_upstream(root: Path, version: str = "1.0.0") -> Path:
     return up
 
 
-def write_config(root: Path, up: Path, *, layout: str = "scripts", checksums: bool = True) -> Path:
+def write_config(
+    root: Path, up: Path, *, layout: str = "scripts", checksums: bool = True, license_url: bool = False, extras: bool = False
+) -> Path:
+    """license_url: take the license from a URL instead of an archive member. extras: pin a source tarball too."""
     host_tag = next(iter(sys_tags())).platform
     tools = root / "tools"
     tools.mkdir(exist_ok=True)
     checksums_line = 'checksums = "faketool_{version}_checksums.txt"' if checksums else ""
+    license_line = f'url = "{up.as_uri()}/LICENSE"' if license_url else 'member = "faketool-{version}/LICENSE"'
+    extras_section = f'[extra-downloads]\nsource = "{up.as_uri()}/faketool-{{version}}.src.tar.gz"' if extras else ""
     (tools / "faketool.md").write_text("# faketool {{version}}\n\nPinned at {{wheel_version}}.\n")
     path = tools / "faketool.toml"
     path.write_text(
@@ -71,11 +80,13 @@ url = "{up.as_uri()}/{{asset}}"
 {checksums_line}
 
 [license]
-member = "faketool-{{version}}/LICENSE"
+{license_line}
 
 [smoke]
 args = ["--version"]
 expect = "faketool {{version}}"
+
+{extras_section}
 
 [[platforms]]
 tag = "manylinux_2_17_x86_64.manylinux2014_x86_64.musllinux_1_1_x86_64"
