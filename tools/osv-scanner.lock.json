@@ -1,13 +1,13 @@
 {
-  "version": "2.7.0",
+  "version": "2.7.1",
   "post": 0,
   "sha256": {
     "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
-    "osv-scanner_darwin_amd64": "e82c5df7ab0a42dff29a1cd0660711447b56b4c0483ff66ad8634df10fd81a45",
-    "osv-scanner_darwin_arm64": "d4926ef8da134332543be276dff157e4c170f99ad91fc48e89448a8816bdf70b",
-    "osv-scanner_linux_amd64": "160c6253e2922e9e0a6a9771c5c4c40a4b3c6090b34a3cdd5e80c96cc2e4218b",
-    "osv-scanner_linux_arm64": "4061ef4c021ed3c47f203b818f337e351336cc5cd67c0274fc36bd1dfc728dd7",
-    "osv-scanner_windows_amd64.exe": "9964ed64ec9a387391eb4cc006ad5c531154821aef29b793e02c448de4686438",
-    "osv-scanner_windows_arm64.exe": "3e630381c1f1fd3c9c4d447e6ff2ef6c737083371722773db8337eead0f97962"
+    "osv-scanner_darwin_amd64": "b8420d5485ba792626315f1bf9a5a2046e971d38eea75bf9090c38852dbc3b1b",
+    "osv-scanner_darwin_arm64": "b22c02877a811c8f78956e8643efa554932b7378f590d13f8e97d4e9448a29f3",
+    "osv-scanner_linux_amd64": "fb7dab19a8bd9bbe5c3189f09d4b7ee1820c9553a23bac202648a56efd2f6ee8",
+    "osv-scanner_linux_arm64": "983d22fbad9724514e3fcc6acc83b5fa64c5ffa6b0d9f510028f22c1b223ff81",
+    "osv-scanner_windows_amd64.exe": "7121dcf420aefbbf89a7f0050c4d3094e079ff93afd334dfc96f16b02ec85800",
+    "osv-scanner_windows_arm64.exe": "5f3998b55c9268f8468502bbcb60645038fd5b145ee5e685e6ae2a32e923afc7"
   }
 }
